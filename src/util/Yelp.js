@@ -1,8 +1,8 @@
 const apiKey = 'I10Nvgt8uP-Wm2S3jfpxrZLyrVqk0PEUKFT1l5gOAzbHY2GjU98qoBbPn4MultncsPiEEro7zWXWc_HNra6XtwZrYhf4PrlPu4YmKWT2hFqQHyQC-IIU8K5K-N8bX3Yx';
 const Yelp = {
-    search(term, location, sortBy) {
+    search(term, location, sortBy, radius) {
         const results = fetch(
-            `https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=${term}&location=${location}&sort_by=${sortBy}`,
+            `https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=${term}&location=${location}&sort_by=${sortBy}&radius=${radius}`,
             { headers: { Authorization: `Bearer ${apiKey}`} }
         ).then(response => response.json())
         .then(jsonResponse => {
@@ -18,9 +18,16 @@ const Yelp = {
                         zipCode: business.location.zip_code,
                         category: business.categories[0].title,
                         rating: business.rating,
-                        reviewCount: business.review_count
+                        reviewCount: business.review_count,
+                        latitude: business.coordinates.latitude,
+                        longitude: business.coordinates.longitude,
+                        url: business.url,
+                        distance: business.distance
                     }
                 })
+            }
+            else { 
+                throw new Error('No results returned');
             }
         })
         return results;
