@@ -1,4 +1,5 @@
-const apiKey = 'I10Nvgt8uP-Wm2S3jfpxrZLyrVqk0PEUKFT1l5gOAzbHY2GjU98qoBbPn4MultncsPiEEro7zWXWc_HNra6XtwZrYhf4PrlPu4YmKWT2hFqQHyQC-IIU8K5K-N8bX3Yx';
+import { apiKey } from './YelpKey.js'
+
 const Yelp = {
     search(term, location, sortBy, radius) {
         const results = fetch(
